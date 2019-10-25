@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Facades\App\Helpers\Json;
 use App\Http\Controllers\Controller;
 
 class RecordController extends Controller {
@@ -14,8 +15,10 @@ class RecordController extends Controller {
             'The Who - Tommy'
         ];
 
+        Json::dump($records);
         return view('admin.records.index', [
             'records' => $records
         ]);
+
     }
 }

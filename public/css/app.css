@@ -10644,6 +10644,14 @@ a.text-dark:focus {
   }
 }
 
+.cardShopMaster {
+  cursor: pointer;
+}
+
+.cardheight {
+  height: 500px;
+}
+
 main {
   min-height: 500px;
 }
