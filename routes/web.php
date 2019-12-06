@@ -22,9 +22,24 @@ Route::get("contact-us", function (){
 Route::view('/', 'home');
 Route::get('shop', 'ShopController@index');
 Route::get('shop/{id}', 'ShopController@show');
-Route::view('contact-us', 'contact');
+Route::get('contact-us', 'ContactUsController@show');
+Route::get('contact', function () {
+    $me = ['name' => env('MAIL_FROM_NAME')];
+    return view('contact', $me);
+});
+Route::post('contact-us', 'ContactUsController@sendEmail');
 Route::get('shop_alt','ShopController@index_alt');
-Route::prefix('admin')->group(function(){
-    Route::redirect('/', 'records');
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    route::redirect('/', 'records');
     Route::get('records', 'Admin\RecordController@index');
 });
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    route::redirect('/', 'records');
+    Route::get('records', 'Admin\RecordController@index');
+});
+
+
+Auth::routes();
+Route::view("/","home");
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('logout', 'Auth\LoginController@logout');

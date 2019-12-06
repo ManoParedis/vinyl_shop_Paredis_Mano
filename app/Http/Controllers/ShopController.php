@@ -80,7 +80,7 @@ class ShopController extends Controller
             ->has('records')
             ->with('records')
             ->get()
-            ->transform(function ($item, $key) {
+            ->transform(function ($item) {
                 $item->name = ucfirst($item->name);
                 // Set first letter of name to uppercase and add the counter
                 unset($item->created_at, $item->updated_at, $item->records_count);
