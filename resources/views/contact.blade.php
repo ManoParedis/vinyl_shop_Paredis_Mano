@@ -39,9 +39,9 @@
                 <label for="contact">Contact</label>
                 <select class="form-control {{$errors->first('contact') ? 'is-invalid': ''}}" name="contact" required>
                     <option value="" hidden disabled selected>Select a contact</option>
-                    <option value="info@thevinylshop.com">The Vinyl Shop - Info</option>
-                    <option value="billing@thevinylshop.com">The Vinyl Shop - Billing</option>
-                    <option value="support@thevinylshop.com">The Vinyl Shop - Support</option>
+                    <option value="info">The Vinyl Shop - Info</option>
+                    <option value="billing">The Vinyl Shop - Billing</option>
+                    <option value="support">The Vinyl Shop - Support</option>
                 </select>
                 <div class="invalid-feedback">{{ $errors->first('contact') }}</div>
             </div>

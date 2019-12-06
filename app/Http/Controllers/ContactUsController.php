@@ -25,10 +25,14 @@ class ContactUsController extends Controller
             'message' => 'required|min:10'
         ]);
 
+
+        $request->merge(["emailFrom"=>$request->contact."@thevinylshop.com"]);
+
         // Send email
         $email = new ContactMail($request);
         Mail::to($request) // or Mail::to($request->email, $request->name)
             ->send($email);
+
 
         // Flash a success message to the session
         session()->flash('success', 'Thanks for you message.<br>We\'ll contact you as soon as possible.');

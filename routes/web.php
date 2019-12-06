@@ -19,9 +19,13 @@
 Route::get("contact-us", function (){
    return view("contact");
 });*/
+
+//shop
 Route::view('/', 'home');
 Route::get('shop', 'ShopController@index');
 Route::get('shop/{id}', 'ShopController@show');
+
+//contact
 Route::get('contact-us', 'ContactUsController@show');
 Route::get('contact', function () {
     $me = ['name' => env('MAIL_FROM_NAME')];
@@ -29,6 +33,8 @@ Route::get('contact', function () {
 });
 Route::post('contact-us', 'ContactUsController@sendEmail');
 Route::get('shop_alt','ShopController@index_alt');
+
+//admin
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     route::redirect('/', 'records');
     Route::get('records', 'Admin\RecordController@index');
@@ -38,7 +44,30 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('records', 'Admin\RecordController@index');
 });
 
+//user
+Route::redirect('user', '/user/profile');
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('profile', 'User\ProfileController@edit');
+    Route::post('profile', 'User\ProfileController@update');
+});
 
+//password
+Route::redirect('user', '/user/profile');
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('profile', 'User\ProfileController@edit');
+    Route::post('profile', 'User\ProfileController@update');
+    Route::get('password', 'User\PasswordController@edit');
+    Route::post('password', 'User\PasswordController@update');
+});
+
+//admin Genre + Record
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    route::redirect('/', 'records');
+    Route::resource('genres', 'Admin\GenreController');
+    Route::get('records', 'Admin\RecordController@index');
+});
+
+//auth + home
 Auth::routes();
 Route::view("/","home");
 //Route::get('/home', 'HomeController@index')->name('home');

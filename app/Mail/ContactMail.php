@@ -23,8 +23,8 @@ class ContactMail extends Mailable
     public function build()
     {
         return $this
-            ->from('info@thevinylshop.com', 'The Vinyl Shop - Info')
-            ->cc('info@thevinylshop.com', 'The Vinyl Shop - Info')
+            ->from($this->request->emailFrom, $this->request->contact)
+            ->cc($this->request->emailFrom, $this->request->contact)
             ->subject('The Vinyl Shop - Contact Form')
             ->markdown('email.contact');
     }
