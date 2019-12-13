@@ -10975,6 +10975,10 @@ a.text-dark:focus {
   height: 500px;
 }
 
+.btn[disabled] {
+  cursor: not-allowed;
+}
+
 main {
   min-height: 500px;
 }
