@@ -1,8 +1,8 @@
-<div class="modal" id="modal-genre">
+<div class="modal" id="modal-user">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">modal-genre-title</h5>
+                <h5 class="modal-title">modal-user-title</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -21,7 +21,7 @@
                                value="">
                         <div class="invalid-feedback"></div>
                     </div>
-                    <button type="submit" class="btn btn-success">Save genre</button>
+                    <button type="submit" class="btn btn-success">Save user</button>
                 </form>
             </div>
         </div>

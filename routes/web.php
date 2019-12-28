@@ -24,6 +24,7 @@ Route::get("contact-us", function (){
 Route::view('/', 'home');
 Route::get('shop', 'ShopController@index');
 Route::get('shop/{id}', 'ShopController@show');
+Route::get('shop_alt','ShopController@index_alt');
 
 //contact
 Route::get('contact-us', 'ContactUsController@show');
@@ -32,7 +33,6 @@ Route::get('contact', function () {
     return view('contact', $me);
 });
 Route::post('contact-us', 'ContactUsController@sendEmail');
-Route::get('shop_alt','ShopController@index_alt');
 
 //admin
 Route::middleware(['auth'])->prefix('admin')->group(function () {
@@ -51,6 +51,7 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::post('profile', 'User\ProfileController@update');
 });
 
+
 //password
 Route::redirect('user', '/user/profile');
 Route::middleware(['auth'])->prefix('user')->group(function () {
@@ -60,12 +61,14 @@ Route::middleware(['auth'])->prefix('user')->group(function () {
     Route::post('password', 'User\PasswordController@update');
 });
 
-//admin Genre + Record
+//admin Genre + Record + users
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     route::redirect('/', 'records');
     Route::get('genres/qryGenres', 'Admin\GenreController@qryGenres');
     Route::resource('genres', 'Admin\GenreController');
     Route::resource('records', 'Admin\RecordController');
+    Route::get('users/qryUsers', 'Admin\UserController@qryUsers');
+    Route::resource('users', 'Admin\UserController');
 });
 
 //auth + home
