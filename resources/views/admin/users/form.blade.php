@@ -25,7 +25,9 @@
 </div>
 <div class="mx-auto row py-2">
     <div class="form-check col">
-        <input class="form-check-input @error('email') is-invalid @enderror" type="checkbox" name="active" value="{{old('active',$user->active)}}" id="active">
+        <input class="form-check-input @error('active') is-invalid @enderror"
+               type="checkbox" name="active" value="{{old('active',$user->active)}}"
+               id="active">
         <label class="form-check-label" for="defaultCheck1">
             Active
         </label>
@@ -34,7 +36,9 @@
         @enderror
     </div>
     <div class="form-check col">
-        <input class="form-check-input @error('email') is-invalid @enderror" type="checkbox" name="admin" value="{{old('admin',$user->admin)}}" id="admin">
+        <input class="form-check-input @error('admin') is-invalid @enderror"
+               type="checkbox" name="admin" value="{{old('admin',$user->admin)}}"
+               id="admin">
         <label class="form-check-label" for="defaultCheck1">
             Admin
         </label>

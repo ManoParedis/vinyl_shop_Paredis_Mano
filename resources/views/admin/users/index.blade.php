@@ -13,10 +13,13 @@
                        value="{{ request()->name }}"
                        placeholder="Filter Name Or Email">
             </div>
-            <div class="col-sm-6 mb-2">
-                <label for="Sort">Sort by</label>
-                <select class="form-control" name="Sort" id="sort">
-
+            <div class="col-sm-4 mb-2">
+                <label for="sort">Sort by</label>
+                <select class="form-control" name="sort" id="sort">
+                    @foreach($orderlist as $i => $sort )
+                        <option value="{{$i}}"
+                                {{ (request()->sort == $i ? 'selected' : '') }}>{{$sort['name']}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

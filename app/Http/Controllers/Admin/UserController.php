@@ -16,62 +16,64 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
         $orderlist = [
             [
                 'name' => 'Name A -> Z',
-                /* value = 0 */
+                /* value = 0*/
                 'order' => 'asc',
                 'kolom' => 'name'
             ],
             [
                 'name' => 'Name Z -> A',
-                /* value = 1 */
+                /* value = 1*/
                 'order' => 'desc',
                 'kolom' => 'name'
             ],
             [
                 'name' => 'Email A -> Z',
-                /* value = 2 */
+                /* value = 2*/
                 'order' => 'asc',
                 'kolom' => 'email'
             ],
             [
                 'name' => 'Email Z -> A',
-                /* value = 3 */
+                /* value = 3*/
                 'order' => 'desc',
                 'kolom' => 'email'
             ],
             [
                 'name' => 'Not active users',
-                /* value = 4 */
+                /* value = 4*/
                 'order' => 'desc',
-                'kolom' => 'asctive'
+                'kolom' => 'active'
             ],
             [
                 'name' => 'Admin users',
-                /* value = 5 */
+                /* value = 5*/
                 'order' => 'asc',
                 'kolom' => 'admin'
             ],
+
         ];
 
-        $name = '%'.$request->input('name').'%';
+        $sort_field = $orderlist[$request->sort]['kolom'];
+        $sort_order = $orderlist[$request->sort]['order'];
 
-        //$sort_field = $orderlist[$request->sort]['kolom'];
-        //$sort_order = $orderlist[$request->sort]['order'];
+        $name = '%' . $request->input('name') . '%';
 
-        $users = User::orderby('id'/*$sort_field, $sort_order*/)
-            ->where(function ($query) use ($name){
-                $query->where('name', 'like', $name);
-            })
-            ->orwhere(function ($query) use ($name){
-                $query->where('email', 'like', $name);
+        $users = User::orderBy($sort_field, $sort_order)
+            ->where(function ($query) use ($name) {
+                $query->where('name', 'like', $name)
+                    -> orWhere('email', 'like', $name);
             })
             ->paginate(10)
-            ->appends(['name' => $request->input('name')]);
-        $result = compact('users');
+            ->appends(['name'=> $request->input('name'), 'sort' => $request->input('sort')]);
+        $result = compact('users', 'orderlist');
         Json::dump($result);
         return view('admin.users.index', $result);
+
+
     }
 
     /**
@@ -173,4 +175,5 @@ class UserController extends Controller
             'text' => "The user <b>$user->name</b> has been deleted"
         ]);
     }
+
 }
