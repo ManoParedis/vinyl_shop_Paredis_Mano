@@ -57,21 +57,33 @@ class UserController extends Controller
 
         ];
 
-        $sort_field = $orderlist[$request->sort]['kolom'];
-        $sort_order = $orderlist[$request->sort]['order'];
-
         $name = '%' . $request->input('name') . '%';
 
-        $users = User::orderBy($sort_field, $sort_order)
-            ->where(function ($query) use ($name) {
-                $query->where('name', 'like', $name)
-                    -> orWhere('email', 'like', $name);
-            })
-            ->paginate(10)
-            ->appends(['name'=> $request->input('name'), 'sort' => $request->input('sort')]);
-        $result = compact('users', 'orderlist');
-        Json::dump($result);
-        return view('admin.users.index', $result);
+        if ($request -> sort == null) {
+            $users = User::orderBy('name')
+                ->where(function ($query) use ($name) {
+                    $query->where('name', 'like', $name)
+                        ->orWhere('email', 'like', $name);
+                })
+                ->paginate(10)
+                ->appends(['name' => $request->input('name'), 'sort' => $request->input('sort')]);
+            $result = compact('users', 'orderlist');
+            Json::dump($result);
+            return view('admin.users.index', $result);
+        }else {
+            $sort_field = $orderlist[$request->sort]['kolom'];
+            $sort_order = $orderlist[$request->sort]['order'];
+            $users = User::orderBy($sort_field, $sort_order)
+                ->where(function ($query) use ($name) {
+                    $query->where('name', 'like', $name)
+                        ->orWhere('email', 'like', $name);
+                })
+                ->paginate(10)
+                ->appends(['name' => $request->input('name'), 'sort' => $request->input('sort')]);
+            $result = compact('users', 'orderlist');
+            Json::dump($result);
+            return view('admin.users.index', $result);
+        }
 
 
     }
